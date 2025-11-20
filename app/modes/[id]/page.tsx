@@ -16,10 +16,10 @@ export default function ModeDetailPage() {
     const [selectedDay, setSelectedDay] = useState<string>('Monday');
     const [dayStartIndex, setDayStartIndex] = useState(0);
 
-    const visibleDays = DAYS.slice(dayStartIndex, dayStartIndex + 4);
+    const visibleDays = DAYS.slice(dayStartIndex, dayStartIndex + 3);
 
     const handleNextDays = () => {
-        if (dayStartIndex + 4 < DAYS.length) {
+        if (dayStartIndex + 3 < DAYS.length) {
             setDayStartIndex(dayStartIndex + 1);
         }
     };
@@ -143,19 +143,8 @@ export default function ModeDetailPage() {
                     <div className="lg:col-span-2 space-y-6 md:space-y-8">
 
                         {/* Day Tabs */}
-                        {/* Day Tabs */}
                         <div className="relative flex items-center gap-2">
-                            {/* Previous button */}
-                            <button
-                                onClick={handlePrevDays}
-                                disabled={dayStartIndex === 0}
-                                className="flex-shrink-0 p-2 rounded-full bg-white/5 hover:bg-white/10 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
-                                aria-label="Previous days"
-                            >
-                                <ChevronLeft className="w-5 h-5" />
-                            </button>
-
-                            <div className="flex-1 flex items-center gap-2 overflow-hidden">
+                            <div className="flex-1 flex items-center gap-2">
                                 {visibleDays.map((day) => {
                                     const isSelected = selectedDay === day;
                                     return (
@@ -173,15 +162,25 @@ export default function ModeDetailPage() {
                                 })}
                             </div>
 
-                            {/* Next button */}
-                            <button
-                                onClick={handleNextDays}
-                                disabled={dayStartIndex + 4 >= DAYS.length}
-                                className="flex-shrink-0 p-2 rounded-full bg-white/5 hover:bg-white/10 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
-                                aria-label="Next days"
-                            >
-                                <ChevronRight className="w-5 h-5" />
-                            </button>
+                            {/* Navigation button */}
+                            {dayStartIndex > 0 && (
+                                <button
+                                    onClick={handlePrevDays}
+                                    className="flex-shrink-0 p-2 rounded-full bg-white/5 hover:bg-white/10 transition-colors"
+                                    aria-label="Previous days"
+                                >
+                                    <ChevronLeft className="w-5 h-5" />
+                                </button>
+                            )}
+                            {dayStartIndex + 3 < DAYS.length && (
+                                <button
+                                    onClick={handleNextDays}
+                                    className="flex-shrink-0 p-2 rounded-full bg-white/5 hover:bg-white/10 transition-colors"
+                                    aria-label="Next days"
+                                >
+                                    <ChevronRight className="w-5 h-5" />
+                                </button>
+                            )}
                         </div>
 
                         <div className="flex items-center justify-between">
@@ -202,12 +201,12 @@ export default function ModeDetailPage() {
                                             <div className="w-px h-full bg-white/10 my-2" />
                                         )}
                                     </div>
-                                    <div className="flex-1 min-w-0">
-                                        <h3 className="text-base sm:text-xl font-bold mb-1 sm:mb-2">{block.mode_name}</h3>
+                                    <div className="flex-1 min-w-0 overflow-hidden">
+                                        <h3 className="text-base sm:text-xl font-bold mb-1 sm:mb-2 truncate">{block.mode_name}</h3>
                                         <div className="text-xs sm:text-sm font-mono text-emerald-400 mb-2">
                                             {block.start_time.slice(0, 5)} - {block.end_time.slice(0, 5)}
                                         </div>
-                                        <p className="text-sm sm:text-base text-gray-400 leading-relaxed">{block.instructions}</p>
+                                        <p className="text-sm sm:text-base text-gray-400 leading-relaxed break-words">{block.instructions}</p>
                                     </div>
                                 </div>
                             ))}
@@ -217,25 +216,25 @@ export default function ModeDetailPage() {
                     {/* Right Column: Action Card */}
                     <div className="lg:col-span-1">
                         <div className="lg:sticky lg:top-24 bg-white/5 border border-white/10 rounded-2xl md:rounded-3xl p-6 md:p-8 space-y-6 md:space-y-8 backdrop-blur-xl mx-auto max-w-md lg:max-w-none">
-                            <div>
-                                <h3 className="text-lg md:text-xl font-bold mb-2">Enter {founder.display_name.split(' ')[0]} Mode</h3>
-                                <p className="text-gray-400 text-sm leading-relaxed">
+                            <div className="overflow-hidden">
+                                <h3 className="text-lg md:text-xl font-bold mb-2 break-words">Enter {founder.display_name.split(' ')[0]} Mode</h3>
+                                <p className="text-gray-400 text-sm leading-relaxed break-words">
                                     Adopt this schedule immediately. Your dashboard will be updated to track this routine for today.
                                 </p>
                             </div>
 
                             <div className="space-y-3 md:space-y-4">
-                                <div className="flex items-center gap-3 text-sm text-gray-300">
-                                    <Check className="w-5 h-5 text-emerald-500 flex-shrink-0" />
-                                    <span>Full daily schedule</span>
+                                <div className="flex items-start gap-3 text-sm text-gray-300">
+                                    <Check className="w-5 h-5 text-emerald-500 flex-shrink-0 mt-0.5" />
+                                    <span className="break-words">Full daily schedule</span>
                                 </div>
-                                <div className="flex items-center gap-3 text-sm text-gray-300">
-                                    <Check className="w-5 h-5 text-emerald-500 flex-shrink-0" />
-                                    <span>Specific instructions per block</span>
+                                <div className="flex items-start gap-3 text-sm text-gray-300">
+                                    <Check className="w-5 h-5 text-emerald-500 flex-shrink-0 mt-0.5" />
+                                    <span className="break-words">Specific instructions per block</span>
                                 </div>
-                                <div className="flex items-center gap-3 text-sm text-gray-300">
-                                    <Check className="w-5 h-5 text-emerald-500 flex-shrink-0" />
-                                    <span>Real-time tracking</span>
+                                <div className="flex items-start gap-3 text-sm text-gray-300">
+                                    <Check className="w-5 h-5 text-emerald-500 flex-shrink-0 mt-0.5" />
+                                    <span className="break-words">Real-time tracking</span>
                                 </div>
                             </div>
 
@@ -247,7 +246,7 @@ export default function ModeDetailPage() {
                                 <span className="truncate">Enter Mode</span>
                             </button>
 
-                            <p className="text-xs text-center text-gray-500 leading-relaxed">
+                            <p className="text-xs text-center text-gray-500 leading-relaxed break-words">
                                 You can switch back or change modes at any time.
                             </p>
                         </div>

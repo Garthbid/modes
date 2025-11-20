@@ -13,7 +13,22 @@ export default function ModeDetailPage() {
     const router = useRouter();
     const [founder, setFounder] = useState<any>(null);
     const [loading, setLoading] = useState(true);
-    const [selectedDay, setSelectedDay] = useState<string>('');
+    const [selectedDay, setSelectedDay] = useState<string>('Monday');
+    const [dayStartIndex, setDayStartIndex] = useState(0);
+
+    const visibleDays = DAYS.slice(dayStartIndex, dayStartIndex + 4);
+
+    const handleNextDays = () => {
+        if (dayStartIndex + 4 < DAYS.length) {
+            setDayStartIndex(dayStartIndex + 1);
+        }
+    };
+
+    const handlePrevDays = () => {
+        if (dayStartIndex > 0) {
+            setDayStartIndex(dayStartIndex - 1);
+        }
+    };
 
     useEffect(() => {
         // Set default day to today
@@ -129,15 +144,25 @@ export default function ModeDetailPage() {
 
                         {/* Day Tabs */}
                         {/* Day Tabs */}
-                        <div className="relative">
-                            <div className="flex items-center gap-2 overflow-x-auto pb-4 scrollbar-hide snap-x snap-mandatory">
-                                {DAYS.map((day) => {
+                        <div className="relative flex items-center gap-2">
+                            {/* Previous button */}
+                            <button
+                                onClick={handlePrevDays}
+                                disabled={dayStartIndex === 0}
+                                className="flex-shrink-0 p-2 rounded-full bg-white/5 hover:bg-white/10 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+                                aria-label="Previous days"
+                            >
+                                <ChevronLeft className="w-5 h-5" />
+                            </button>
+
+                            <div className="flex-1 flex items-center gap-2 overflow-hidden">
+                                {visibleDays.map((day) => {
                                     const isSelected = selectedDay === day;
                                     return (
                                         <button
                                             key={day}
                                             onClick={() => setSelectedDay(day)}
-                                            className={`px-4 py-2 rounded-full text-sm font-medium transition-all whitespace-nowrap flex-shrink-0 snap-start ${isSelected
+                                            className={`flex-1 px-3 py-2 rounded-full text-sm font-medium transition-all whitespace-nowrap ${isSelected
                                                 ? 'bg-emerald-500 text-black'
                                                 : 'bg-white/5 text-gray-400 hover:bg-white/10 hover:text-white'
                                                 }`}
@@ -147,8 +172,16 @@ export default function ModeDetailPage() {
                                     );
                                 })}
                             </div>
-                            {/* Scroll indicator */}
-                            <div className="absolute right-0 top-0 bottom-4 w-12 bg-gradient-to-l from-black to-transparent pointer-events-none lg:hidden" />
+
+                            {/* Next button */}
+                            <button
+                                onClick={handleNextDays}
+                                disabled={dayStartIndex + 4 >= DAYS.length}
+                                className="flex-shrink-0 p-2 rounded-full bg-white/5 hover:bg-white/10 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+                                aria-label="Next days"
+                            >
+                                <ChevronRight className="w-5 h-5" />
+                            </button>
                         </div>
 
                         <div className="flex items-center justify-between">
@@ -183,7 +216,7 @@ export default function ModeDetailPage() {
 
                     {/* Right Column: Action Card */}
                     <div className="lg:col-span-1">
-                        <div className="lg:sticky lg:top-24 bg-white/5 border border-white/10 rounded-2xl md:rounded-3xl p-6 md:p-8 space-y-6 md:space-y-8 backdrop-blur-xl">
+                        <div className="lg:sticky lg:top-24 bg-white/5 border border-white/10 rounded-2xl md:rounded-3xl p-6 md:p-8 space-y-6 md:space-y-8 backdrop-blur-xl mx-auto max-w-md lg:max-w-none">
                             <div>
                                 <h3 className="text-lg md:text-xl font-bold mb-2">Enter {founder.display_name.split(' ')[0]} Mode</h3>
                                 <p className="text-gray-400 text-sm leading-relaxed">

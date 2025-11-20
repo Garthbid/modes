@@ -108,34 +108,34 @@ export default function ModeDetailPage() {
     return (
         <div className="min-h-screen bg-black text-white">
             {/* Hero Section */}
-            <div className="relative h-[40vh] w-full overflow-hidden">
+            <div className="relative min-h-[30vh] md:h-[40vh] w-full overflow-hidden">
                 <div className="absolute inset-0 bg-gradient-to-b from-emerald-900/20 to-black z-10" />
                 <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-20" />
 
-                <div className="container mx-auto px-6 h-full flex flex-col justify-end pb-12 relative z-20">
-                    <Link href="/modes" className="inline-flex items-center text-gray-400 hover:text-white mb-8 transition-colors">
+                <div className="container mx-auto px-4 sm:px-6 h-full flex flex-col justify-end pb-8 md:pb-12 relative z-20">
+                    <Link href="/modes" className="inline-flex items-center text-gray-400 hover:text-white mb-6 md:mb-8 transition-colors text-sm md:text-base">
                         <ArrowLeft className="w-4 h-4 mr-2" /> Back to Marketplace
                     </Link>
 
-                    <h1 className="text-5xl md:text-7xl font-bold mb-4 tracking-tight">{founder.display_name}</h1>
-                    <p className="text-xl text-gray-300 max-w-2xl leading-relaxed">{founder.bio}</p>
+                    <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold mb-3 md:mb-4 tracking-tight">{founder.display_name}</h1>
+                    <p className="text-base sm:text-lg md:text-xl text-gray-300 max-w-2xl leading-relaxed">{founder.bio}</p>
                 </div>
             </div>
 
-            <div className="container mx-auto px-6 py-12">
-                <div className="grid lg:grid-cols-3 gap-12">
+            <div className="container mx-auto px-4 sm:px-6 py-8 md:py-12">
+                <div className="grid lg:grid-cols-3 gap-8 lg:gap-12">
                     {/* Left Column: Schedule */}
-                    <div className="lg:col-span-2 space-y-8">
+                    <div className="lg:col-span-2 space-y-6 md:space-y-8">
 
                         {/* Day Tabs */}
-                        <div className="flex items-center gap-2 overflow-x-auto pb-4 no-scrollbar">
+                        <div className="flex items-center gap-2 overflow-x-auto pb-4 no-scrollbar -mx-4 px-4 sm:mx-0 sm:px-0">
                             {DAYS.map((day) => {
                                 const isSelected = selectedDay === day;
                                 return (
                                     <button
                                         key={day}
                                         onClick={() => setSelectedDay(day)}
-                                        className={`px-4 py-2 rounded-full text-sm font-medium transition-all whitespace-nowrap ${isSelected
+                                        className={`px-3 sm:px-4 py-2 rounded-full text-xs sm:text-sm font-medium transition-all whitespace-nowrap flex-shrink-0 ${isSelected
                                             ? 'bg-emerald-500 text-black'
                                             : 'bg-white/5 text-gray-400 hover:bg-white/10 hover:text-white'
                                             }`}
@@ -180,37 +180,38 @@ export default function ModeDetailPage() {
 
                     {/* Right Column: Action Card */}
                     <div className="lg:col-span-1">
-                        <div className="sticky top-24 bg-white/5 border border-white/10 rounded-3xl p-8 space-y-8 backdrop-blur-xl">
+                        <div className="lg:sticky lg:top-24 bg-white/5 border border-white/10 rounded-2xl md:rounded-3xl p-6 md:p-8 space-y-6 md:space-y-8 backdrop-blur-xl">
                             <div>
-                                <h3 className="text-xl font-bold mb-2">Enter {founder.display_name.split(' ')[0]} Mode</h3>
-                                <p className="text-gray-400 text-sm">
+                                <h3 className="text-lg md:text-xl font-bold mb-2">Enter {founder.display_name.split(' ')[0]} Mode</h3>
+                                <p className="text-gray-400 text-sm leading-relaxed">
                                     Adopt this schedule immediately. Your dashboard will be updated to track this routine for today.
                                 </p>
                             </div>
 
-                            <div className="space-y-4">
+                            <div className="space-y-3 md:space-y-4">
                                 <div className="flex items-center gap-3 text-sm text-gray-300">
-                                    <Check className="w-5 h-5 text-emerald-500" />
+                                    <Check className="w-5 h-5 text-emerald-500 flex-shrink-0" />
                                     <span>Full daily schedule</span>
                                 </div>
                                 <div className="flex items-center gap-3 text-sm text-gray-300">
-                                    <Check className="w-5 h-5 text-emerald-500" />
+                                    <Check className="w-5 h-5 text-emerald-500 flex-shrink-0" />
                                     <span>Specific instructions per block</span>
                                 </div>
                                 <div className="flex items-center gap-3 text-sm text-gray-300">
-                                    <Check className="w-5 h-5 text-emerald-500" />
+                                    <Check className="w-5 h-5 text-emerald-500 flex-shrink-0" />
                                     <span>Real-time tracking</span>
                                 </div>
                             </div>
 
                             <button
                                 onClick={handleEnterMode}
-                                className="w-full py-4 rounded-xl bg-emerald-500 text-black font-bold text-lg hover:bg-emerald-400 transition-all hover:scale-[1.02] flex items-center justify-center gap-2 shadow-lg shadow-emerald-500/20"
+                                className="w-full py-3.5 md:py-4 rounded-xl bg-emerald-500 text-black font-bold text-base md:text-lg hover:bg-emerald-400 transition-all hover:scale-[1.02] flex items-center justify-center gap-2 shadow-lg shadow-emerald-500/20"
                             >
-                                <Play className="w-5 h-5 fill-current" /> Enter Mode
+                                <Play className="w-5 h-5 fill-current flex-shrink-0" />
+                                <span className="truncate">Enter Mode</span>
                             </button>
 
-                            <p className="text-xs text-center text-gray-500">
+                            <p className="text-xs text-center text-gray-500 leading-relaxed">
                                 You can switch back or change modes at any time.
                             </p>
                         </div>

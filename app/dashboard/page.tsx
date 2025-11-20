@@ -403,13 +403,13 @@ export default function DashboardPage() {
         <div className="min-h-screen bg-black text-white pb-20 relative">
             {/* Header */}
             <header className="border-b border-white/10 bg-black/50 backdrop-blur-md sticky top-0 z-20">
-                <div className="container mx-auto px-6 h-16 flex items-center justify-between">
-                    <div className="font-bold text-xl tracking-tighter flex items-center gap-2">
+                <div className="container mx-auto px-4 sm:px-6 h-14 sm:h-16 flex items-center justify-between">
+                    <div className="font-bold text-lg sm:text-xl tracking-tighter flex items-center gap-2">
                         <Link href="/modes" className="hover:opacity-80 transition-opacity">
                             MODES
                         </Link>
                         {stats.points > 0 && (
-                            <div className="flex items-center gap-3 ml-4 text-sm font-normal bg-white/5 px-3 py-1 rounded-full border border-white/10">
+                            <div className="hidden sm:flex items-center gap-3 ml-4 text-xs sm:text-sm font-normal bg-white/5 px-2 sm:px-3 py-1 rounded-full border border-white/10">
                                 <div className="flex items-center gap-1 text-yellow-400">
                                     <Trophy className="w-3 h-3" />
                                     <span>{stats.points}</span>
@@ -422,7 +422,7 @@ export default function DashboardPage() {
                             </div>
                         )}
                     </div>
-                    <div className="flex items-center gap-4">
+                    <div className="flex items-center gap-2 sm:gap-4">
                         <ModeSwitcher
                             currentFounderId={selectedFounderId}
                             onSwitch={handleModeSwitch}
@@ -441,19 +441,19 @@ export default function DashboardPage() {
                                 ))}
                             </select>
                         </div>
-                        <button className="p-2 hover:bg-white/10 rounded-lg transition-colors">
+                        <button className="p-2 hover:bg-white/10 rounded-lg transition-colors hidden sm:block">
                             <Bell className="w-5 h-5" />
                         </button>
                         <Link href="/settings" className="p-2 hover:bg-white/10 rounded-lg transition-colors">
-                            <Settings className="w-5 h-5" />
+                            <Settings className="w-4 h-4 sm:w-5 sm:h-5" />
                         </Link>
                     </div>
                 </div>
             </header>
 
-            <main className="container mx-auto px-6 py-8 space-y-8">
+            <main className="container mx-auto px-4 sm:px-6 py-6 sm:py-8 space-y-6 sm:space-y-8">
                 {/* Day Selector */}
-                <div className="flex items-center justify-between bg-white/5 border border-white/10 rounded-2xl p-2">
+                <div className="flex items-center justify-between bg-white/5 border border-white/10 rounded-xl sm:rounded-2xl p-1.5 sm:p-2 overflow-x-auto no-scrollbar">
                     {weekDates.map((date) => {
                         const isSelected = isSameDay(date, selectedDate);
                         const isCurrentDay = isToday(date);
@@ -461,15 +461,15 @@ export default function DashboardPage() {
                             <button
                                 key={date.toISOString()}
                                 onClick={() => setSelectedDate(date)}
-                                className={`flex-1 flex flex-col items-center justify-center py-3 rounded-xl transition-all ${isSelected
+                                className={`flex-1 min-w-[50px] sm:min-w-0 flex flex-col items-center justify-center py-2 sm:py-3 rounded-lg sm:rounded-xl transition-all ${isSelected
                                     ? 'bg-emerald-500 text-black shadow-lg shadow-emerald-500/20'
                                     : 'hover:bg-white/5 text-gray-400 hover:text-white'
                                     }`}
                             >
-                                <span className="text-xs font-medium uppercase tracking-wider opacity-80">
+                                <span className="text-[10px] sm:text-xs font-medium uppercase tracking-wider opacity-80">
                                     {format(date, 'EEE')}
                                 </span>
-                                <span className={`text-lg font-bold ${isSelected ? 'text-black' : isCurrentDay ? 'text-emerald-400' : 'text-white'}`}>
+                                <span className={`text-base sm:text-lg font-bold ${isSelected ? 'text-black' : isCurrentDay ? 'text-emerald-400' : 'text-white'}`}>
                                     {format(date, 'd')}
                                 </span>
                             </button>

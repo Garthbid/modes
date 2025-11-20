@@ -63,7 +63,7 @@ export async function generateDayRun(userId: string, modeId: string, date: Date,
     // Let's stick to FIXED times for now as the seed data looks like fixed clock times.
     // We just need to combine the DATE with the TIME.
 
-    const blockRuns = blocks.map((block) => {
+    const blockRuns = blocks.map((block: any) => {
         // Parse time string 'HH:mm:ss'
         const [startH, startM] = block.start_time.split(':').map(Number);
         const [endH, endM] = block.end_time.split(':').map(Number);

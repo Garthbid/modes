@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { useParams, useRouter } from 'next/navigation';
-import { ArrowLeft, Clock, Check, Zap, Play, Calendar } from 'lucide-react';
+import { ArrowLeft, Clock, Check, Zap, Play, Calendar, ChevronLeft, ChevronRight } from 'lucide-react';
 import Link from 'next/link';
 import { MOCK_FOUNDERS, USE_MOCK_DATA } from '@/lib/mock-data';
 

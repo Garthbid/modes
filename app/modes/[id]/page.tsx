@@ -14,20 +14,24 @@ export default function ModeDetailPage() {
     const [founder, setFounder] = useState<any>(null);
     const [loading, setLoading] = useState(true);
     const [selectedDay, setSelectedDay] = useState<string>('Monday');
-    const [dayStartIndex, setDayStartIndex] = useState(0);
 
-    const visibleDays = DAYS.slice(dayStartIndex, dayStartIndex + 3);
+    // Calculate which 3 days to show based on selected day
+    const getVisibleDays = () => {
+        const selectedIndex = DAYS.indexOf(selectedDay);
+        const days = [];
 
-    const handleNextDays = () => {
-        if (dayStartIndex + 3 < DAYS.length) {
-            setDayStartIndex(dayStartIndex + 1);
+        for (let i = 0; i < 3; i++) {
+            const dayIndex = (selectedIndex + i) % DAYS.length;
+            days.push(DAYS[dayIndex]);
         }
+
+        return days;
     };
 
-    const handlePrevDays = () => {
-        if (dayStartIndex > 0) {
-            setDayStartIndex(dayStartIndex - 1);
-        }
+    const visibleDays = getVisibleDays();
+
+    const handleDayClick = (day: string) => {
+        setSelectedDay(day);
     };
 
     useEffect(() => {
@@ -143,44 +147,22 @@ export default function ModeDetailPage() {
                     <div className="lg:col-span-2 space-y-6 md:space-y-8">
 
                         {/* Day Tabs */}
-                        <div className="relative flex items-center gap-2">
-                            <div className="flex-1 flex items-center gap-2">
-                                {visibleDays.map((day) => {
-                                    const isSelected = selectedDay === day;
-                                    return (
-                                        <button
-                                            key={day}
-                                            onClick={() => setSelectedDay(day)}
-                                            className={`flex-1 px-3 py-2 rounded-full text-sm font-medium transition-all whitespace-nowrap ${isSelected
-                                                ? 'bg-emerald-500 text-black'
-                                                : 'bg-white/5 text-gray-400 hover:bg-white/10 hover:text-white'
-                                                }`}
-                                        >
-                                            {day}
-                                        </button>
-                                    );
-                                })}
-                            </div>
-
-                            {/* Navigation button */}
-                            {dayStartIndex > 0 && (
-                                <button
-                                    onClick={handlePrevDays}
-                                    className="flex-shrink-0 p-2 rounded-full bg-white/5 hover:bg-white/10 transition-colors"
-                                    aria-label="Previous days"
-                                >
-                                    <ChevronLeft className="w-5 h-5" />
-                                </button>
-                            )}
-                            {dayStartIndex + 3 < DAYS.length && (
-                                <button
-                                    onClick={handleNextDays}
-                                    className="flex-shrink-0 p-2 rounded-full bg-white/5 hover:bg-white/10 transition-colors"
-                                    aria-label="Next days"
-                                >
-                                    <ChevronRight className="w-5 h-5" />
-                                </button>
-                            )}
+                        <div className="flex items-center gap-2">
+                            {visibleDays.map((day) => {
+                                const isSelected = selectedDay === day;
+                                return (
+                                    <button
+                                        key={day}
+                                        onClick={() => handleDayClick(day)}
+                                        className={`flex-1 px-3 py-2 rounded-full text-sm font-medium transition-all whitespace-nowrap ${isSelected
+                                            ? 'bg-emerald-500 text-black'
+                                            : 'bg-white/5 text-gray-400 hover:bg-white/10 hover:text-white'
+                                            }`}
+                                    >
+                                        {day}
+                                    </button>
+                                );
+                            })}
                         </div>
 
                         <div className="flex items-center justify-between">

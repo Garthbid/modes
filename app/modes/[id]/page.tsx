@@ -128,22 +128,27 @@ export default function ModeDetailPage() {
                     <div className="lg:col-span-2 space-y-6 md:space-y-8">
 
                         {/* Day Tabs */}
-                        <div className="flex items-center gap-2 overflow-x-auto pb-4 no-scrollbar -mx-4 px-4 sm:mx-0 sm:px-0">
-                            {DAYS.map((day) => {
-                                const isSelected = selectedDay === day;
-                                return (
-                                    <button
-                                        key={day}
-                                        onClick={() => setSelectedDay(day)}
-                                        className={`px-3 sm:px-4 py-2 rounded-full text-xs sm:text-sm font-medium transition-all whitespace-nowrap flex-shrink-0 ${isSelected
-                                            ? 'bg-emerald-500 text-black'
-                                            : 'bg-white/5 text-gray-400 hover:bg-white/10 hover:text-white'
-                                            }`}
-                                    >
-                                        {day}
-                                    </button>
-                                );
-                            })}
+                        {/* Day Tabs */}
+                        <div className="relative">
+                            <div className="flex items-center gap-2 overflow-x-auto pb-4 scrollbar-hide snap-x snap-mandatory">
+                                {DAYS.map((day) => {
+                                    const isSelected = selectedDay === day;
+                                    return (
+                                        <button
+                                            key={day}
+                                            onClick={() => setSelectedDay(day)}
+                                            className={`px-4 py-2 rounded-full text-sm font-medium transition-all whitespace-nowrap flex-shrink-0 snap-start ${isSelected
+                                                ? 'bg-emerald-500 text-black'
+                                                : 'bg-white/5 text-gray-400 hover:bg-white/10 hover:text-white'
+                                                }`}
+                                        >
+                                            {day}
+                                        </button>
+                                    );
+                                })}
+                            </div>
+                            {/* Scroll indicator */}
+                            <div className="absolute right-0 top-0 bottom-4 w-12 bg-gradient-to-l from-black to-transparent pointer-events-none lg:hidden" />
                         </div>
 
                         <div className="flex items-center justify-between">
@@ -153,25 +158,23 @@ export default function ModeDetailPage() {
                             <span className="text-sm text-gray-500">{activeTemplate?.template_blocks.length || 0} blocks</span>
                         </div>
 
-                        <div className="space-y-4">
+                        <div className="space-y-3 sm:space-y-4">
                             {activeTemplate?.template_blocks.map((block: any, index: number) => (
-                                <div key={block.id} className="flex gap-6 p-6 rounded-2xl bg-white/5 border border-white/10 hover:border-emerald-500/30 transition-colors">
+                                <div key={block.id} className="flex gap-3 sm:gap-6 p-4 sm:p-6 rounded-xl sm:rounded-2xl bg-white/5 border border-white/10 hover:border-emerald-500/30 transition-colors">
                                     <div className="flex flex-col items-center pt-1">
-                                        <div className="w-8 h-8 rounded-full bg-emerald-500/10 flex items-center justify-center text-emerald-500 font-bold text-sm">
+                                        <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-emerald-500/10 flex items-center justify-center text-emerald-500 font-bold text-xs sm:text-sm flex-shrink-0">
                                             {index + 1}
                                         </div>
                                         {index !== activeTemplate.template_blocks.length - 1 && (
                                             <div className="w-px h-full bg-white/10 my-2" />
                                         )}
                                     </div>
-                                    <div className="flex-1">
-                                        <div className="flex items-center justify-between mb-2">
-                                            <h3 className="text-xl font-bold">{block.mode_name}</h3>
-                                            <div className="text-sm font-mono text-gray-400 bg-white/5 px-3 py-1 rounded-full">
-                                                {block.start_time.slice(0, 5)} - {block.end_time.slice(0, 5)}
-                                            </div>
+                                    <div className="flex-1 min-w-0">
+                                        <h3 className="text-base sm:text-xl font-bold mb-1 sm:mb-2">{block.mode_name}</h3>
+                                        <div className="text-xs sm:text-sm font-mono text-emerald-400 mb-2">
+                                            {block.start_time.slice(0, 5)} - {block.end_time.slice(0, 5)}
                                         </div>
-                                        <p className="text-gray-400 leading-relaxed">{block.instructions}</p>
+                                        <p className="text-sm sm:text-base text-gray-400 leading-relaxed">{block.instructions}</p>
                                     </div>
                                 </div>
                             ))}

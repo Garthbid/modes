@@ -33,16 +33,18 @@ html {
 
 /* Improve touch targets on mobile */
 @media (max-width: 768px) {
-  button, a {
+
+  button,
+  a {
     min-height: 44px;
     min-width: 44px;
   }
-  
+
   /* Better mobile scrolling */
   * {
     -webkit-overflow-scrolling: touch;
   }
-  
+
   /* Prevent text size adjustment on orientation change */
   html {
     -webkit-text-size-adjust: 100%;
@@ -55,6 +57,15 @@ html {
 }
 
 .no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+.scrollbar-hide {
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
